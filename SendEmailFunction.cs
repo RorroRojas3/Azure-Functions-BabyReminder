@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
@@ -18,11 +19,12 @@ namespace net_core_baby_reminder
         }
 
         [FunctionName("Function1")]
-        public void Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log)
+        public async Task Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log)
         {
             _logger.LogInformation($"SendEmailFunction - Started at {DateTime.UtcNow}");
 
-            _sendEmailService.SendEmail();
+            await _sendEmailService.SendEmail();
+            await _sendEmailService.SendEmailEnglish();
         }
     }
 }
