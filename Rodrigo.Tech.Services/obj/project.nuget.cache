@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CgwqM1pIX5Iffjs5nA5Jo9U1RemLW0qAsYRb6sPoVh5sdpoinqHW6UvAIjGIWoLMgm9yuRSu3JDxajV9axGWUw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Services\\Rodrigo.Tech.Services.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rorro\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

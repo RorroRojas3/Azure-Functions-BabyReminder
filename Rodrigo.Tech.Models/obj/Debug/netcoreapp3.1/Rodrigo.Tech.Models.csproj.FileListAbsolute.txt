@@ -1,0 +1,9 @@
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Models\bin\Debug\netcoreapp3.1\Rodrigo.Tech.Models.deps.json
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Models\bin\Debug\netcoreapp3.1\Rodrigo.Tech.Models.dll
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Models\bin\Debug\netcoreapp3.1\Rodrigo.Tech.Models.pdb
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Models\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Models.csprojAssemblyReference.cache
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Models\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Models.AssemblyInfoInputs.cache
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Models\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Models.AssemblyInfo.cs
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Models\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Models.csproj.CoreCompileInputs.cache
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Models\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Models.dll
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Models\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Models.pdb

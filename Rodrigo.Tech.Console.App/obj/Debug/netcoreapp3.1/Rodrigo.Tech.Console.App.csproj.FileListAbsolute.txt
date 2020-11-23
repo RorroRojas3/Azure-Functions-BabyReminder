@@ -1,0 +1,4 @@
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Console.App\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Console.App.csprojAssemblyReference.cache
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Console.App\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Console.App.AssemblyInfoInputs.cache
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Console.App\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Console.App.AssemblyInfo.cs
+C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Console.App\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Console.App.csproj.CoreCompileInputs.cache
