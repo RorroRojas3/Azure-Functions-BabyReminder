@@ -5,11 +5,21 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Rodrigo.Tech.Services.Interface;
 
 namespace Rodrigo.Tech.Azure.Functions
 {
     public class EmailOrchestator
     {
+        private readonly ILogger _logger;
+        private readonly IStmpService _stmpService;
+
+        public EmailOrchestator(ILogger<EmailOrchestator> logger, IStmpService stmpService)
+        {
+            _logger = logger;
+            _stmpService = stmpService;
+        }
+          
         [FunctionName("EmailOrchestrator_HttpStart")]
         public async Task<HttpResponseMessage> HttpStart(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage req,
