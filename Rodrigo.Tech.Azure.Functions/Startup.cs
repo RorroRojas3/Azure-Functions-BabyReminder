@@ -11,7 +11,6 @@ namespace Rodrigo.Tech.Azure.Functions
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            //builder.Services.AddLogging();
             builder.Services.AddTransient<IStmpService, StmpService>();
         }
     }
