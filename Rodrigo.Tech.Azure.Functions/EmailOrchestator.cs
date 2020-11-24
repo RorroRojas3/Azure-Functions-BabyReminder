@@ -1,10 +1,10 @@
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Rodrigo.Tech.Models.Constants;
 using Rodrigo.Tech.Services.Interface;
 
 namespace Rodrigo.Tech.Azure.Functions
@@ -20,40 +20,32 @@ namespace Rodrigo.Tech.Azure.Functions
             _stmpService = stmpService;
         }
           
-        [FunctionName("EmailOrchestrator_HttpStart")]
+        [FunctionName(AzureFunctionsConstants.EMAIL_HTTPSTART_FUNCTION)]
         public async Task<HttpResponseMessage> HttpStart(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage req,
-            [DurableClient] IDurableOrchestrationClient starter,
-            ILogger log)
+            [DurableClient] IDurableOrchestrationClient starter)
         {
-            // Function input comes from the request content.
-            string instanceId = await starter.StartNewAsync("Function1", null);
+            string instanceId = await starter.StartNewAsync(AzureFunctionsConstants.EMAIL_ORCHESTRATOR_FUNCTION, null);
 
-            log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
+            _logger.LogInformation($"Started orchestration with ID {instanceId}");
 
             return starter.CreateCheckStatusResponse(req, instanceId);
         }
 
 
-        [FunctionName("Function1")]
-        public async Task<List<string>> RunOrchestrator(
+        [FunctionName(AzureFunctionsConstants.EMAIL_ORCHESTRATOR_FUNCTION)]
+        public async Task RunOrchestrator(
             [OrchestrationTrigger] IDurableOrchestrationContext context)
         {
-            var outputs = new List<string>
-            {
-                await context.CallActivityAsync<string>("Function1_Hello", "Tokyo"),
-                await context.CallActivityAsync<string>("Function1_Hello", "Seattle"),
-                await context.CallActivityAsync<string>("Function1_Hello", "London")
-            };
-
-            return outputs;
+            await context.CallActivityAsync(AzureFunctionsConstants.EMAIL_SEND_FUNCTION, context.InstanceId);
         }
 
-        [FunctionName("Function1_Hello")]
-        public string SayHello([ActivityTrigger] string name, ILogger log)
+        [FunctionName(AzureFunctionsConstants.EMAIL_SEND_FUNCTION)]
+        public async Task SendEmail([ActivityTrigger] string instanceId)
         {
-            log.LogInformation($"Saying hello to {name}.");
-            return $"Hello {name}!";
+            _logger.LogInformation($"{AzureFunctionsConstants.EMAIL_SEND_FUNCTION} - Started");
+            await _stmpService.SendEmail();
+            _logger.LogInformation($"{AzureFunctionsConstants.EMAIL_SEND_FUNCTION} - Finished");
         }
     }
 }
