@@ -13,9 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Images\DaniOLeo.jpeg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\Rodrigo.Tech.Utility\Rodrigo.Tech.Utility.csproj" />
   </ItemGroup>
 
 </Project>
