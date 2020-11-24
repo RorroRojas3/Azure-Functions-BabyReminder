@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Rodrigo.Tech.Services.Implementation;
 using Rodrigo.Tech.Services.Interface;
-using System;
 using System.Threading.Tasks;
 
 namespace Rodrigo.Tech.ConsoleApp
@@ -13,7 +12,6 @@ namespace Rodrigo.Tech.ConsoleApp
         public static async Task Main()
         {
             var serviceProvider = new ServiceCollection()
-            .AddLogging()
             .AddTransient<IHttpClientService, HttpClientService>()
             .BuildServiceProvider();
 
