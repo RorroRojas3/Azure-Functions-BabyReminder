@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Console.App\\Rodrigo.Tech.Console.App.csproj": {}
+    "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Console.App\\Rodrigo.Tech.ConsoleApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Console.App\\Rodrigo.Tech.Console.App.csproj": {
+    "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Console.App\\Rodrigo.Tech.ConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Console.App\\Rodrigo.Tech.Console.App.csproj",
+        "projectUniqueName": "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Console.App\\Rodrigo.Tech.ConsoleApp.csproj",
         "projectName": "Rodrigo.Tech.ConsoleApp",
-        "projectPath": "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Console.App\\Rodrigo.Tech.Console.App.csproj",
+        "projectPath": "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Console.App\\Rodrigo.Tech.ConsoleApp.csproj",
         "packagesPath": "C:\\Users\\Rorro\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Rorro\\OneDrive\\Documents\\GitHub\\net_core_baby_reminder\\Rodrigo.Tech.Console.App\\obj\\",
         "projectStyle": "PackageReference",
