@@ -1,9 +1,0 @@
-C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Services\bin\Debug\netcoreapp3.1\Rodrigo.Tech.Services.deps.json
-C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Services\bin\Debug\netcoreapp3.1\Rodrigo.Tech.Services.dll
-C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Services\bin\Debug\netcoreapp3.1\Rodrigo.Tech.Services.pdb
-C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Services\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Services.AssemblyInfoInputs.cache
-C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Services\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Services.AssemblyInfo.cs
-C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Services\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Services.csproj.CoreCompileInputs.cache
-C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Services\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Services.dll
-C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Services\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Services.pdb
-C:\Users\Rorro\OneDrive\Documents\GitHub\net_core_baby_reminder\Rodrigo.Tech.Services\obj\Debug\netcoreapp3.1\Rodrigo.Tech.Services.csprojAssemblyReference.cache
