@@ -25,7 +25,6 @@ namespace Rodrigo.Tech.Azure.Functions
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage req,
             [DurableClient] IDurableOrchestrationClient starter)
         {
-            // Function input comes from the request content.
             string instanceId = await starter.StartNewAsync(FunctionNameConstants.EMAIL_ORCHESTRATOR, null);
 
             _logger.LogInformation($"Started orchestration with ID = '{instanceId}'.");
