@@ -23,38 +23,36 @@ namespace Rodrigo.Tech.Services.Implementation
             _logger.LogInformation($"HttpClientService - Json - Started, Url: {url}, " +
                 $"Body: {JsonConvert.SerializeObject(body)}, HttpMethod: {httpMethod}");
 
-            using (var client = CreateClient())
+            using var client = CreateClient();
+            HttpResponseMessage httpResponseMessage = null;
+            if (headers != null)
             {
-                HttpResponseMessage httpResponseMessage = null;
-                if (headers != null)
+                foreach (var item in headers)
                 {
-                    foreach (var item in headers)
-                    {
-                        client.DefaultRequestHeaders.Add(item.Key, item.Value);
-                    }
+                    client.DefaultRequestHeaders.Add(item.Key, item.Value);
                 }
-
-                switch (httpMethod.ToUpper())
-                {
-                    case "GET":
-                        httpResponseMessage = await client.GetAsync(url);
-                        break;
-                    case "POST":
-                        httpResponseMessage = await client.PostAsJsonAsync(url, body);
-                        break;
-                    case "PUT":
-                        httpResponseMessage = await client.PutAsJsonAsync(url, body);
-                        break;
-                    case "DELETE":
-                        httpResponseMessage = await client.DeleteAsync(url);
-                        break;
-                    default:
-                        _logger.LogError($"HttpClientService - Json - Invalid HttpMethod");
-                        break;
-                }
-
-                return httpResponseMessage;
             }
+
+            switch (httpMethod.ToUpper())
+            {
+                case "GET":
+                    httpResponseMessage = await client.GetAsync(url);
+                    break;
+                case "POST":
+                    httpResponseMessage = await client.PostAsJsonAsync(url, body);
+                    break;
+                case "PUT":
+                    httpResponseMessage = await client.PutAsJsonAsync(url, body);
+                    break;
+                case "DELETE":
+                    httpResponseMessage = await client.DeleteAsync(url);
+                    break;
+                default:
+                    _logger.LogError($"HttpClientService - Json - Invalid HttpMethod");
+                    break;
+            }
+
+            return httpResponseMessage;
         }
 
         /// <summary>

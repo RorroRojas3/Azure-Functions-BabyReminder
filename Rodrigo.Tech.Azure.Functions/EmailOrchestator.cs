@@ -29,14 +29,13 @@ namespace Rodrigo.Tech.Azure.Functions
         public async Task<List<string>> RunOrchestrator(
             [OrchestrationTrigger] IDurableOrchestrationContext context)
         {
-            var outputs = new List<string>();
+            var outputs = new List<string>
+            {
+                await context.CallActivityAsync<string>("Function1_Hello", "Tokyo"),
+                await context.CallActivityAsync<string>("Function1_Hello", "Seattle"),
+                await context.CallActivityAsync<string>("Function1_Hello", "London")
+            };
 
-            // Replace "hello" with the name of your Durable Activity Function.
-            outputs.Add(await context.CallActivityAsync<string>("Function1_Hello", "Tokyo"));
-            outputs.Add(await context.CallActivityAsync<string>("Function1_Hello", "Seattle"));
-            outputs.Add(await context.CallActivityAsync<string>("Function1_Hello", "London"));
-
-            // returns ["Hello Tokyo!", "Hello Seattle!", "Hello London!"]
             return outputs;
         }
 
