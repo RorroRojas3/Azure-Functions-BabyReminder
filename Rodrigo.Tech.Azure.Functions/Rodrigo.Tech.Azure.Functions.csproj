@@ -10,7 +10,6 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.11" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rodrigo.Tech.Models\Rodrigo.Tech.Models.csproj" />
     <ProjectReference Include="..\Rodrigo.Tech.Services\Rodrigo.Tech.Services.csproj" />
   </ItemGroup>
   <ItemGroup>

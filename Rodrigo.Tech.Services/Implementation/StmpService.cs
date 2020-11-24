@@ -41,8 +41,7 @@ namespace Rodrigo.Tech.Services.Implementation
 
             email.From = new MailAddress("rodrigo3.tech@gmail.com");
             email.AlternateViews.Add(htmlView);
-            //email.To.Add("rorro.irg@gmail.com,Macarena.crg@hotmail.com,Francisco2.ins@gmail.com,Ingrid.pgc@hotmail.com,carlos.rojas@fluor.com");
-            email.To.Add("rorro.irg@gmail.com");
+            email.To.Add("rorro.irg@gmail.com,Macarena.crg@hotmail.com,Francisco2.ins@gmail.com,Ingrid.pgc@hotmail.com,carlos.rojas@fluor.com");
             email.Subject = "BEBCITOOOOO";
             email.IsBodyHtml = true;
             email.Body = body;
