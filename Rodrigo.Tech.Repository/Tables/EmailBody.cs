@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Rodrigo.Tech.Repository.Tables
 {
-    [Table(nameof(Email))]
-    public class Email : IEntity
+    [Table(nameof(EmailBody))]
+    public class EmailBody : IEntity
     {
         [Key]
         [Required]
@@ -14,12 +14,12 @@ namespace Rodrigo.Tech.Repository.Tables
         public Guid Id { get; set; }
 
         [Required]
-        public string EmailAddress { get; set; }
+        public string Html {get; set;}
 
         [Required]
         public Guid LanguageId { get; set; }
 
         [ForeignKey("LanguageId")]
-        public Language Language {get; set;}
+        public Language Language { get; set; }
     }
 }

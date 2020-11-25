@@ -6,7 +6,7 @@ using Rodrigo.Tech.Repository.Pattern.Implementation;
 using Rodrigo.Tech.Repository.Pattern.Interface;
 using Rodrigo.Tech.Services.Implementation;
 using Rodrigo.Tech.Services.Interface;
-
+using System;
 
 [assembly: FunctionsStartup(typeof(Rodrigo.Tech.Azure.Functions.Startup))]
 namespace Rodrigo.Tech.Azure.Functions
@@ -15,9 +15,15 @@ namespace Rodrigo.Tech.Azure.Functions
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            var db = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BabyReminder;Integrated Security=True";
             builder.Services.AddTransient<IStmpService, StmpService>();
-            builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(db));
+
+
+            builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("AZURE_DB")));
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+            optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("AZURE_DB"));
+
+            using (var context = new DatabaseContext(optionsBuilder.Options))
+                context.Database.Migrate();
             builder.Services.AddScoped(typeof(IRepositoryPattern<>), typeof(RepositoryPattern<>));
         }
     }

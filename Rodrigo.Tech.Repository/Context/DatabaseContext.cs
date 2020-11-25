@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rodrigo.Tech.Repository.Tables;
+using System;
 
 namespace Rodrigo.Tech.Repository.Context
 {
@@ -10,18 +11,25 @@ namespace Rodrigo.Tech.Repository.Context
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Language>().HasData(new Language
+            {
+                Id = Guid.NewGuid(),
+                Name = "English"
+            }, new Language
+            {
+                Id = Guid.NewGuid(),
+                Name = "Spanish"
+            });
         }
 
         #region Tables
-        public DbSet<Email> Items { get; set; }
+        public DbSet<Email> Emails { get; set; }
+
+        public DbSet<EmailBody> EmailBodies {get; set;}
+
+        public DbSet<Language> Languages { get; set; }
         #endregion
     }
 }
