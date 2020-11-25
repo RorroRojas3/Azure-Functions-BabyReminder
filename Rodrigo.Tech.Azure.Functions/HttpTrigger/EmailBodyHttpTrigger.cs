@@ -6,14 +6,15 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Rodrigo.Tech.Models.Constants;
 
 namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 {
     public static class EmailBodyHttpTrigger
     {
-        [FunctionName("EMAILBODY_GETALL")]
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_GETALL)]
         public static async Task<IActionResult> GetAllEmailBodies(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = HttpTriggerFunctionRouteConstants.EMAILBODY_GETALL)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
@@ -31,9 +32,9 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             return new OkObjectResult(responseMessage);
         }
 
-        [FunctionName("EMAILBODY_GET")]
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_GET)]
         public static async Task<IActionResult> GetEmailBody(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
@@ -51,9 +52,9 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             return new OkObjectResult(responseMessage);
         }
 
-        [FunctionName("EMAILBODY_POST")]
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_POST)]
         public static async Task<IActionResult> PostEmailBody(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
@@ -71,9 +72,9 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             return new OkObjectResult(responseMessage);
         }
 
-        [FunctionName("EMAILBODY_PUT")]
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_PUT)]
         public static async Task<IActionResult> PutEmailBody(
-            [HttpTrigger(AuthorizationLevel.Function, "put", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "put", Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
@@ -91,9 +92,9 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             return new OkObjectResult(responseMessage);
         }
 
-        [FunctionName("EMAILBODY_DELETE")]
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_DELETE)]
         public static async Task<IActionResult> DeleteEmailBody(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
