@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rodrigo.Tech.Azure.Function
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rodrigo.Tech.Utility", "Rodrigo.Tech.Utility\Rodrigo.Tech.Utility.csproj", "{70B90E56-95AE-4B21-AFA2-A9EDA9553016}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rodrigo.Tech.Repository", "Rodrigo.Tech.Repository\Rodrigo.Tech.Repository.csproj", "{ABD8A01C-C214-409E-8088-68872DC003A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rodrigo.Tech.Repository", "Rodrigo.Tech.Repository\Rodrigo.Tech.Repository.csproj", "{ABD8A01C-C214-409E-8088-68872DC003A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

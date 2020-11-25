@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Rodrigo.Tech.Models.Constants;
 using Rodrigo.Tech.Services.Interface;
 
-namespace Rodrigo.Tech.Azure.Functions
+namespace Rodrigo.Tech.Azure.Functions.DurableFunctions
 {
     public class EmailOrchestator
     {
