@@ -1,22 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Rodrigo.Tech.Repository.Rodrigo.Tech.Repository.Migrations
+namespace Rodrigo.Tech.Repository.Migrations
 {
-    public partial class LanguagesTable : Migration
+    public partial class EmailAndBodyAndLanguageTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Language",
-                table: "Email");
-
-            migrationBuilder.AddColumn<Guid>(
-                name: "LanguageId",
-                table: "Email",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
-
             migrationBuilder.CreateTable(
                 name: "Languages",
                 columns: table => new
@@ -27,6 +17,25 @@ namespace Rodrigo.Tech.Repository.Rodrigo.Tech.Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Languages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Email",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    EmailAddress = table.Column<string>(nullable: false),
+                    LanguageId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Email", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Email_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,12 +60,12 @@ namespace Rodrigo.Tech.Repository.Rodrigo.Tech.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Languages",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("84e1db2e-3ccf-49cb-a660-e46a5e8dfc0e"), "English" });
+                values: new object[] { new Guid("5d5b0fe5-c777-45f8-b6ce-dfeac209db1b"), "English" });
 
             migrationBuilder.InsertData(
                 table: "Languages",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("3bfa7ae0-934e-4c2e-b9b0-7429b04470a0"), "Spanish" });
+                values: new object[] { new Guid("90271cfb-9d12-46c0-97fb-3f9ca0f65b6c"), "Spanish" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Email_LanguageId",
@@ -67,42 +76,18 @@ namespace Rodrigo.Tech.Repository.Rodrigo.Tech.Repository.Migrations
                 name: "IX_EmailBody_LanguageId",
                 table: "EmailBody",
                 column: "LanguageId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Email_Languages_LanguageId",
-                table: "Email",
-                column: "LanguageId",
-                principalTable: "Languages",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Email_Languages_LanguageId",
-                table: "Email");
+            migrationBuilder.DropTable(
+                name: "Email");
 
             migrationBuilder.DropTable(
                 name: "EmailBody");
 
             migrationBuilder.DropTable(
                 name: "Languages");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Email_LanguageId",
-                table: "Email");
-
-            migrationBuilder.DropColumn(
-                name: "LanguageId",
-                table: "Email");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Language",
-                table: "Email",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Rodrigo.Tech.Repository.Pattern.Implementation
     public class RepositoryPattern<T> : IRepositoryPattern<T> where T : class, IEntity
     {
         protected readonly DatabaseContext _dbContext;
-        private DbSet<T> _entities;
+        private readonly DbSet<T> _entities;
 
         public RepositoryPattern(DatabaseContext dbContext)
         {
@@ -26,7 +26,7 @@ namespace Rodrigo.Tech.Repository.Pattern.Implementation
 
             if (doesExit != null)
             {
-                return default(T);
+                return default;
             }
 
             await _entities.AddAsync(entity);
@@ -80,7 +80,7 @@ namespace Rodrigo.Tech.Repository.Pattern.Implementation
 
             if (doesExit == null)
             {
-                return default(T);
+                return default;
             }
 
             _entities.Update(entity);

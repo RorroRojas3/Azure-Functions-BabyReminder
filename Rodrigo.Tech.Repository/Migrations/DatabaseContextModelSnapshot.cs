@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rodrigo.Tech.Repository.Context;
 
-namespace Rodrigo.Tech.Repository.Rodrigo.Tech.Repository.Migrations
+namespace Rodrigo.Tech.Repository.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
     partial class DatabaseContextModelSnapshot : ModelSnapshot
@@ -76,12 +76,12 @@ namespace Rodrigo.Tech.Repository.Rodrigo.Tech.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("84e1db2e-3ccf-49cb-a660-e46a5e8dfc0e"),
+                            Id = new Guid("5d5b0fe5-c777-45f8-b6ce-dfeac209db1b"),
                             Name = "English"
                         },
                         new
                         {
-                            Id = new Guid("3bfa7ae0-934e-4c2e-b9b0-7429b04470a0"),
+                            Id = new Guid("90271cfb-9d12-46c0-97fb-3f9ca0f65b6c"),
                             Name = "Spanish"
                         });
                 });
