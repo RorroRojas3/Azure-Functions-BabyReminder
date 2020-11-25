@@ -30,7 +30,7 @@ namespace Rodrigo.Tech.Services.Implementation
         /// <inheritdoc/>
         public async Task<bool> DeleteItem(Guid id)
         {
-            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(DeleteItem)} - Started, Id: {id}");
             return await _repository.Delete(id);
         }
@@ -38,19 +38,19 @@ namespace Rodrigo.Tech.Services.Implementation
         /// <inheritdoc/>
         public async Task<EmailBodyResponse> GetItem(Guid id)
         {
-            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Started, Id: {id}");
 
             var item = await _repository.Get(id);
 
             if (item == null)
             {
-                _logger.LogError($"{nameof(EmailRepositoryService)} " +
+                _logger.LogError($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Not found, Id: {id}");
                 return null;
             }
 
-            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Finished, Id: {id}");
             return _mapper.Map<EmailBodyResponse>(item);
         }
@@ -58,18 +58,18 @@ namespace Rodrigo.Tech.Services.Implementation
         /// <inheritdoc/>
         public async Task<List<EmailBodyResponse>> GetItems()
         {
-            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItems)} - Started");
             var items = await _repository.GetAll();
 
             if (items.Count > 0)
             {
-                _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+                _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItems)} - No emailBodies found");
                 return null;
             }
 
-            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItems)} - Finished");
             return _mapper.Map<List<EmailBodyResponse>>(items);
         }
@@ -77,13 +77,13 @@ namespace Rodrigo.Tech.Services.Implementation
         /// <inheritdoc/>
         public async Task<EmailBodyResponse> PostItem(EmailBodyRequest request)
         {
-            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(PostItem)} - Started, Request: {JsonConvert.SerializeObject(request)}");
             var newItem = _mapper.Map<EmailBody>(request);
 
             var addedItem = await _repository.Add(newItem);
 
-            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(PostItem)} - Finished, Request: {JsonConvert.SerializeObject(request)}");
             return _mapper.Map<EmailBodyResponse>(addedItem);
         }
@@ -91,13 +91,13 @@ namespace Rodrigo.Tech.Services.Implementation
         /// <inheritdoc/>
         public async Task<EmailBodyResponse> PutItem(Guid id, EmailBodyRequest request)
         {
-            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(PutItem)} - Started, Request: {JsonConvert.SerializeObject(request)}");
             var item = await _repository.Get(id);
 
             if (item == null)
             {
-                _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+                _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(PutItem)} - Not found, Request: {JsonConvert.SerializeObject(request)}");
                 return null;
             }
@@ -105,7 +105,7 @@ namespace Rodrigo.Tech.Services.Implementation
             _mapper.Map(request, item);
             await _repository.Update(item);
 
-            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(PutItem)} - Finished, Request: {JsonConvert.SerializeObject(request)}");
             return _mapper.Map<EmailBodyResponse>(item);
         }

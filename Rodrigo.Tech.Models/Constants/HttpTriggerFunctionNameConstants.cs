@@ -13,5 +13,17 @@
 
         public const string EMAILBODY_DELETE = "EMAILBODY_DELETE";
         #endregion
+
+        #region Email
+        public const string EMAIL_GETALL = "EMAIL_GETALL";
+
+        public const string EMAIL_GET = "EMAIL_GET";
+
+        public const string EMAIL_POST = "EMAIL_POST";
+
+        public const string EMAIL_PUT = "EMAIL_PUT";
+
+        public const string EMAIL_DELETE = "EMAIL_DELETE";
+        #endregion
     }
 }

@@ -28,7 +28,7 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
         [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_GETALL)]
         public async Task<IActionResult> GetAllEmailBodies(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", 
-            Route = HttpTriggerFunctionRouteConstants.EMAILBODY_GETALL)] HttpRequest req
+            Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest req
             )
         {
             _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_GETALL} - Started");
