@@ -16,7 +16,7 @@ namespace Rodrigo.Tech.Models.AutoMapper
 
             #region Responses
             CreateMap<Email, EmailResponse>();
-            CreateMap<EmailBody, EmailResponse>();
+            CreateMap<EmailBody, EmailBodyResponse>();
             CreateMap<Language, LanguageResponse>();
             #endregion
         }

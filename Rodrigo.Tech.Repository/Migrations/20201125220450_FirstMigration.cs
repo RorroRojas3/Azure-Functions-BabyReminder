@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Rodrigo.Tech.Repository.Migrations
 {
-    public partial class EmailAndBodyAndLanguageTables : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,12 +60,18 @@ namespace Rodrigo.Tech.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Languages",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("5d5b0fe5-c777-45f8-b6ce-dfeac209db1b"), "English" });
+                values: new object[] { new Guid("282788b1-fada-4986-9907-db48205b2194"), "English" });
 
             migrationBuilder.InsertData(
                 table: "Languages",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("90271cfb-9d12-46c0-97fb-3f9ca0f65b6c"), "Spanish" });
+                values: new object[] { new Guid("fc8b0f13-004a-431e-a8c5-51d68387f77a"), "Spanish" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Email_EmailAddress",
+                table: "Email",
+                column: "EmailAddress",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Email_LanguageId",
@@ -75,7 +81,14 @@ namespace Rodrigo.Tech.Repository.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_EmailBody_LanguageId",
                 table: "EmailBody",
-                column: "LanguageId");
+                column: "LanguageId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Languages_Name",
+                table: "Languages",
+                column: "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

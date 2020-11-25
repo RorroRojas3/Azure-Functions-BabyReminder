@@ -1,114 +1,98 @@
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Rodrigo.Tech.Models.Constants;
+using Rodrigo.Tech.Models.Request;
+using Rodrigo.Tech.Services.Interface;
+using System;
 using Newtonsoft.Json;
 
 namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 {
-    public static class EmailBodyHttpTrigger
+    public class EmailBodyHttpTrigger
     {
-        [FunctionName("EMAILBODY_GETALL")]
-        public static async Task<IActionResult> GetAllEmailBodies(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
-            ILogger log)
+        private readonly ILogger _logger;
+        private readonly IEmailBodyRepositoryService _repositoryService;
+
+        public EmailBodyHttpTrigger(ILogger<EmailBodyHttpTrigger> logger,
+                                    IEmailBodyRepositoryService emailBodyRepositoryService)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _logger = logger;
+            _repositoryService = emailBodyRepositoryService;
 
-            string name = req.Query["name"];
-
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
         }
 
-        [FunctionName("EMAILBODY_GET")]
-        public static async Task<IActionResult> GetEmailBody(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
-            ILogger log)
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_GETALL)]
+        public async Task<IActionResult> GetAllEmailBodies(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", 
+            Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest req
+            )
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_GETALL} - Started");
 
-            string name = req.Query["name"];
+            var result = await _repositoryService.GetItems();
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_GETALL} - Finished");
+            return new OkObjectResult(result);
         }
 
-        [FunctionName("EMAILBODY_POST")]
-        public static async Task<IActionResult> PostEmailBody(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
-            ILogger log)
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_GET)]
+        public async Task<IActionResult> GetEmailBody(
+            [HttpTrigger(AuthorizationLevel.Function, "get", 
+            Route = HttpTriggerFunctionRouteConstants.EMAILBODY_BYID)] HttpRequest request, Guid id)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_GETALL} - Started");
 
-            string name = req.Query["name"];
+            var result = await _repositoryService.GetItem(id);
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_GETALL} - Finished");
+            return new OkObjectResult(result);
         }
 
-        [FunctionName("EMAILBODY_PUT")]
-        public static async Task<IActionResult> PutEmailBody(
-            [HttpTrigger(AuthorizationLevel.Function, "put", Route = null)] HttpRequest req,
-            ILogger log)
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_POST)]
+        public async Task<IActionResult> PostEmailBody(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", 
+            Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest request)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_POST} - Started");
 
-            string name = req.Query["name"];
+            var input = await request.ReadAsStringAsync();
+            var emailBodyRequest = JsonConvert.DeserializeObject<EmailBodyRequest>(input);
+            var result = await _repositoryService.PostItem(emailBodyRequest);
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_POST} - Finished");
+            return new OkObjectResult(result);
         }
 
-        [FunctionName("EMAILBODY_DELETE")]
-        public static async Task<IActionResult> DeleteEmailBody(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = null)] HttpRequest req,
-            ILogger log)
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_PUT)]
+        public async Task<IActionResult> PutEmailBody(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "put", 
+            Route = HttpTriggerFunctionRouteConstants.EMAILBODY_BYID)] HttpRequest request, Guid id)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_PUT} - Started");
 
-            string name = req.Query["name"];
+            var input = await request.ReadAsStringAsync();
+            var emailBodyRequest = JsonConvert.DeserializeObject<EmailBodyRequest>(input);
+            var result = await _repositoryService.PutItem(id, emailBodyRequest);
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_PUT} - Finished");
+            return new OkObjectResult(result);
+        }
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+        [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_DELETE)]
+        public async Task<IActionResult> DeleteEmailBody(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", 
+            Route = HttpTriggerFunctionRouteConstants.EMAILBODY_BYID)] HttpRequest request, Guid id)
+        {
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_DELETE} - Started");
 
-            return new OkObjectResult(responseMessage);
+            var result = await _repositoryService.DeleteItem(id);
+
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_DELETE} - Finished");
+            return new OkObjectResult(result);
         }
     }
 }

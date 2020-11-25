@@ -10,8 +10,8 @@ using Rodrigo.Tech.Repository.Context;
 namespace Rodrigo.Tech.Repository.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20201125020336_EmailAndBodyAndLanguageTables")]
-    partial class EmailAndBodyAndLanguageTables
+    [Migration("20201125220450_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,12 +29,15 @@ namespace Rodrigo.Tech.Repository.Migrations
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmailAddress")
+                        .IsUnique();
 
                     b.HasIndex("LanguageId");
 
@@ -56,7 +59,8 @@ namespace Rodrigo.Tech.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("LanguageId")
+                        .IsUnique();
 
                     b.ToTable("EmailBody");
                 });
@@ -69,21 +73,24 @@ namespace Rodrigo.Tech.Repository.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Languages");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5d5b0fe5-c777-45f8-b6ce-dfeac209db1b"),
+                            Id = new Guid("282788b1-fada-4986-9907-db48205b2194"),
                             Name = "English"
                         },
                         new
                         {
-                            Id = new Guid("90271cfb-9d12-46c0-97fb-3f9ca0f65b6c"),
+                            Id = new Guid("fc8b0f13-004a-431e-a8c5-51d68387f77a"),
                             Name = "Spanish"
                         });
                 });

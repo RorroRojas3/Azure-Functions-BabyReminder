@@ -15,13 +15,22 @@ namespace Rodrigo.Tech.Repository.Context
         {
             modelBuilder.Entity<Language>().HasData(new Language
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("282788b1-fada-4986-9907-db48205b2194"),
                 Name = "English"
             }, new Language
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("fc8b0f13-004a-431e-a8c5-51d68387f77a"),
                 Name = "Spanish"
             });
+
+            modelBuilder.Entity<Email>()
+                .HasIndex(x => x.EmailAddress).IsUnique();
+
+            modelBuilder.Entity<EmailBody>()
+                .HasIndex(x => x.LanguageId).IsUnique();
+
+            modelBuilder.Entity<Language>()
+                .HasIndex(x => x.Name).IsUnique();
         }
 
         #region Tables
