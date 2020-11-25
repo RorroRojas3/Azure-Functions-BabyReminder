@@ -22,6 +22,15 @@ namespace Rodrigo.Tech.Repository.Context
                 Id = Guid.NewGuid(),
                 Name = "Spanish"
             });
+
+            modelBuilder.Entity<Email>()
+                .HasIndex(x => x.EmailAddress).IsUnique();
+
+            modelBuilder.Entity<EmailBody>()
+                .HasIndex(x => x.LanguageId).IsUnique();
+
+            modelBuilder.Entity<Language>()
+                .HasIndex(x => x.Name).IsUnique();
         }
 
         #region Tables

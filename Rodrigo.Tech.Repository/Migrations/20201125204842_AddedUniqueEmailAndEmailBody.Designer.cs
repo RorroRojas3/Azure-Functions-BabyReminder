@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rodrigo.Tech.Repository.Context;
 
 namespace Rodrigo.Tech.Repository.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20201125204842_AddedUniqueEmailAndEmailBody")]
+    partial class AddedUniqueEmailAndEmailBody
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,24 +73,21 @@ namespace Rodrigo.Tech.Repository.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Languages");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("677c564f-ec75-4cbb-84f5-70dd2ead01ac"),
+                            Id = new Guid("a190e05a-c483-41f2-bc90-30e0c5dd5463"),
                             Name = "English"
                         },
                         new
                         {
-                            Id = new Guid("ebcbe782-30ac-4c07-87d9-91f01a741205"),
+                            Id = new Guid("12fb15ca-0e72-4701-9ae8-be4de2f4c4ca"),
                             Name = "Spanish"
                         });
                 });

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Rodrigo.Tech.Models.Request;
 using Rodrigo.Tech.Models.Response;
 using Rodrigo.Tech.Repository.Pattern.Interface;
@@ -13,13 +14,19 @@ namespace Rodrigo.Tech.Services.Implementation
     public class EmailBodyRepositoryService : IEmailBodyRepositoryService
     {
         private readonly IRepositoryPattern<EmailBody> _repository;
+        private readonly ILanguageRepositoryService _languageRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
         public EmailBodyRepositoryService(IRepositoryPattern<EmailBody> repository,
-                                        IMapper mapper)
+                                        IMapper mapper,
+                                        ILanguageRepositoryService languageRepositoryService,
+                                        ILogger<EmailBodyRepositoryService> logger)
         {
             _repository = repository;
+            _languageRepository = languageRepositoryService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         /// <inheritdoc/>
