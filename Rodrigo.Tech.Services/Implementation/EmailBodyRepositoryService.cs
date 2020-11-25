@@ -65,7 +65,7 @@ namespace Rodrigo.Tech.Services.Implementation
             if (items.Count == 0)
             {
                 _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
-                $"- {nameof(GetItems)} - No emailBodies found");
+                $"- {nameof(GetItems)} - Not found");
                 return null;
             }
 

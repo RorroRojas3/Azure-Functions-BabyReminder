@@ -10,8 +10,8 @@ using Rodrigo.Tech.Repository.Context;
 namespace Rodrigo.Tech.Repository.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20201125204842_AddedUniqueEmailAndEmailBody")]
-    partial class AddedUniqueEmailAndEmailBody
+    [Migration("20201125220450_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,21 +73,24 @@ namespace Rodrigo.Tech.Repository.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Languages");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a190e05a-c483-41f2-bc90-30e0c5dd5463"),
+                            Id = new Guid("282788b1-fada-4986-9907-db48205b2194"),
                             Name = "English"
                         },
                         new
                         {
-                            Id = new Guid("12fb15ca-0e72-4701-9ae8-be4de2f4c4ca"),
+                            Id = new Guid("fc8b0f13-004a-431e-a8c5-51d68387f77a"),
                             Name = "Spanish"
                         });
                 });

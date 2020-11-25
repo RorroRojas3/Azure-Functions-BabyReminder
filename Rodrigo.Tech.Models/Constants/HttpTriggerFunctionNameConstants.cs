@@ -25,5 +25,11 @@
 
         public const string EMAIL_DELETE = "EMAIL_DELETE";
         #endregion
+
+        #region Language
+        public const string LANGUAGE_GETALL = "LANGUAGE_GETALL";
+
+        public const string LANGUAGE_GET = "LANGUAGE_GET";
+        #endregion
     }
 }

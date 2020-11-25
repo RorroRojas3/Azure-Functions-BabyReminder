@@ -83,12 +83,12 @@ namespace Rodrigo.Tech.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("677c564f-ec75-4cbb-84f5-70dd2ead01ac"),
+                            Id = new Guid("282788b1-fada-4986-9907-db48205b2194"),
                             Name = "English"
                         },
                         new
                         {
-                            Id = new Guid("ebcbe782-30ac-4c07-87d9-91f01a741205"),
+                            Id = new Guid("fc8b0f13-004a-431e-a8c5-51d68387f77a"),
                             Name = "Spanish"
                         });
                 });

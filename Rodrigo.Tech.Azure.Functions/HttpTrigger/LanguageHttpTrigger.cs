@@ -1,35 +1,52 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Rodrigo.Tech.Services.Interface;
+using Rodrigo.Tech.Models.Constants;
 
 namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 {
-    public static class LanguageHttpTrigger
+    public class LanguageHttpTrigger
     {
-        [FunctionName("LANGUAGE_GETALL")]
-        public static async Task<IActionResult> GetAllLanguages(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            ILogger log)
+        private readonly ILogger _logger;
+        private readonly ILanguageRepositoryService _repositoryService;
+
+        public LanguageHttpTrigger(ILogger<LanguageHttpTrigger> logger, 
+                                    ILanguageRepositoryService languageRepositoryService)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _logger = logger;
+            _repositoryService = languageRepositoryService;
+        }
 
-            string name = req.Query["name"];
+        [FunctionName(HttpTriggerFunctionNameConstants.LANGUAGE_GETALL)]
+        public async Task<IActionResult> GetAllEmails(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get",
+            Route = HttpTriggerFunctionRouteConstants.LANGUAGE)] HttpRequest req
+            )
+        {
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GETALL} - Started");
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            var result = await _repositoryService.GetItems();
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GETALL} - Finished");
+            return new OkObjectResult(result);
+        }
 
-            return new OkObjectResult(responseMessage);
+        [FunctionName(HttpTriggerFunctionNameConstants.LANGUAGE_GET)]
+        public async Task<IActionResult> GetEmail(
+            [HttpTrigger(AuthorizationLevel.Function, "get",
+            Route = HttpTriggerFunctionRouteConstants.LANGUAGE_BYID)] HttpRequest request, Guid id)
+        {
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GET} - Started");
+
+            var result = await _repositoryService.GetItem(id);
+
+            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GET} - Finished");
+            return new OkObjectResult(result);
         }
     }
 }
