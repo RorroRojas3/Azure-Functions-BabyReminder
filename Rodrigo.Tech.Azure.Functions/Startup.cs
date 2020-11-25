@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Rodrigo.Tech.Repository.Context;
@@ -15,6 +16,7 @@ namespace Rodrigo.Tech.Azure.Functions
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
+            builder.Services.AddAutoMapper(typeof(Startup));
             builder.Services.AddTransient<IStmpService, StmpService>();
 
 
