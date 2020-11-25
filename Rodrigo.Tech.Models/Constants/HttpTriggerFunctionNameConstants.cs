@@ -2,6 +2,6 @@
 {
     public class HttpTriggerFunctionNameConstants
     {
-
+        public const string EMAILBODY_GETALL = "EMAILBODY_GETALL";
     }
 }
