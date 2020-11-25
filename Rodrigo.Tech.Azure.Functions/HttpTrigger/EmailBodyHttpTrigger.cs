@@ -8,6 +8,7 @@ using Rodrigo.Tech.Models.Constants;
 using Rodrigo.Tech.Models.Request;
 using Rodrigo.Tech.Services.Interface;
 using System;
+using Newtonsoft.Json;
 
 namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 {
@@ -58,7 +59,9 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
         {
             _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_POST} - Started");
 
-            var result = await _repositoryService.PostItem(request);
+            var input = await request.ReadAsStringAsync();
+            var emailBodyRequest = JsonConvert.DeserializeObject<EmailBodyRequest>(input);
+            var result = await _repositoryService.PostItem(emailBodyRequest);
 
             _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_POST} - Finished");
             return new OkObjectResult(result);
@@ -71,7 +74,9 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
         {
             _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_PUT} - Started");
 
-            var result = await _repositoryService.PutItem(id, request);
+            var input = await request.ReadAsStringAsync();
+            var emailBodyRequest = JsonConvert.DeserializeObject<EmailBodyRequest>(input);
+            var result = await _repositoryService.PutItem(id, emailBodyRequest);
 
             _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_PUT} - Finished");
             return new OkObjectResult(result);
