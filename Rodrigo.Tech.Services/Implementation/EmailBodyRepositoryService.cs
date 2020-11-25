@@ -62,7 +62,7 @@ namespace Rodrigo.Tech.Services.Implementation
                 $"- {nameof(GetItems)} - Started");
             var items = await _repository.GetAll();
 
-            if (items.Count > 0)
+            if (items.Count == 0)
             {
                 _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItems)} - No emailBodies found");
