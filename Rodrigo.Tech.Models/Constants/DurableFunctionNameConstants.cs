@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rodrigo.Tech.Models.Constants
 {
-    public class FunctionNameConstants
+    public class DurableFunctionNameConstants
     {
         public const string EMAIL_HTTPSTART = "EMAIL_HTTPSTART";
         public const string EMAIL_ORCHESTRATOR = "EMAIL_ORCHESTRATOR";

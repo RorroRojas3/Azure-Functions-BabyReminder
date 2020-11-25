@@ -6,10 +6,16 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask" Version="2.3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.11" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rodrigo.Tech.Models\Rodrigo.Tech.Models.csproj" />
+    <ProjectReference Include="..\Rodrigo.Tech.Repository\Rodrigo.Tech.Repository.csproj" />
     <ProjectReference Include="..\Rodrigo.Tech.Services\Rodrigo.Tech.Services.csproj" />
   </ItemGroup>
   <ItemGroup>

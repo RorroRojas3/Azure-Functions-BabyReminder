@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Rodrigo.Tech.Models.Constants;
 using Rodrigo.Tech.Services.Interface;
 
-namespace Rodrigo.Tech.Azure.Functions
+namespace Rodrigo.Tech.Azure.Functions.DurableFunctions
 {
     public class EmailOrchestator
     {
@@ -20,12 +20,12 @@ namespace Rodrigo.Tech.Azure.Functions
             _stmpService = stmpService;
         }
           
-        [FunctionName(FunctionNameConstants.EMAIL_HTTPSTART)]
+        [FunctionName(DurableFunctionNameConstants.EMAIL_HTTPSTART)]
         public async Task<HttpResponseMessage> HttpStart(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage req,
             [DurableClient] IDurableOrchestrationClient starter)
         {
-            string instanceId = await starter.StartNewAsync(FunctionNameConstants.EMAIL_ORCHESTRATOR, null);
+            string instanceId = await starter.StartNewAsync(DurableFunctionNameConstants.EMAIL_ORCHESTRATOR, null);
 
             _logger.LogInformation($"Started orchestration with ID = '{instanceId}'.");
 
@@ -33,19 +33,19 @@ namespace Rodrigo.Tech.Azure.Functions
         }
 
 
-        [FunctionName(FunctionNameConstants.EMAIL_ORCHESTRATOR)]
+        [FunctionName(DurableFunctionNameConstants.EMAIL_ORCHESTRATOR)]
         public async Task RunOrchestrator(
             [OrchestrationTrigger] IDurableOrchestrationContext context)
         {
-            await context.CallActivityAsync(FunctionNameConstants.EMAIL_SEND, context.InstanceId);
+            await context.CallActivityAsync(DurableFunctionNameConstants.EMAIL_SEND, context.InstanceId);
         }
 
-        [FunctionName(FunctionNameConstants.EMAIL_SEND)]
+        [FunctionName(DurableFunctionNameConstants.EMAIL_SEND)]
         public async Task EmailSend([ActivityTrigger] string instanceId)
         {
-            _logger.LogInformation($"{FunctionNameConstants.EMAIL_SEND} - Started");
+            _logger.LogInformation($"{DurableFunctionNameConstants.EMAIL_SEND} - Started");
             await _stmpService.SendEmail();
-            _logger.LogInformation($"{FunctionNameConstants.EMAIL_SEND} - Finished");
+            _logger.LogInformation($"{DurableFunctionNameConstants.EMAIL_SEND} - Finished");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Rodrigo.Tech.Repository.Context;
 using Rodrigo.Tech.Services.Interface;
 using System;
-using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -11,10 +11,12 @@ namespace Rodrigo.Tech.Services.Implementation
     public class StmpService : IStmpService
     {
         private readonly ILogger _logger;
+        private readonly DatabaseContext _dbContext;
 
-        public StmpService(ILogger<StmpService> logger)
+        public StmpService(ILogger<StmpService> logger, DatabaseContext databaseContext)
         {
             _logger = logger;
+            _dbContext = databaseContext;
         }
 
         public async Task SendEmail()

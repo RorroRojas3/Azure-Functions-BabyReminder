@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Rodrigo.Tech.Repository\Rodrigo.Tech.Repository.csproj" />
     <ProjectReference Include="..\Rodrigo.Tech.Utility\Rodrigo.Tech.Utility.csproj" />
   </ItemGroup>
 
