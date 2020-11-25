@@ -28,6 +28,9 @@ namespace Rodrigo.Tech.Azure.Functions
             using (var context = new DatabaseContext(optionsBuilder.Options))
                 context.Database.Migrate();
             builder.Services.AddScoped(typeof(IRepositoryPattern<>), typeof(RepositoryPattern<>));
+            builder.Services.AddTransient<IEmailRepositoryService, EmailRepositoryService>();
+            builder.Services.AddTransient<IEmailBodyRepositoryService, EmailBodyRepositoryService>();
+            builder.Services.AddTransient<ILanguageRepositoryService, LanguageRepositoryService>();
         }
     }
 }
