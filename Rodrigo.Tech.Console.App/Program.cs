@@ -12,6 +12,7 @@ namespace Rodrigo.Tech.ConsoleApp
         public static async Task Main()
         {
             var serviceProvider = new ServiceCollection()
+            .AddLogging()
             .AddTransient<IHttpClientService, HttpClientService>()
             .BuildServiceProvider();
 
