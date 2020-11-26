@@ -14,7 +14,7 @@ namespace Rodrigo.Tech.Repository.Tables
         public Guid Id { get; set; }
 
         [Required]
-        public string Html {get; set;}
+        public byte[] Html {get; set;}
 
         [Required]
         public Guid LanguageId { get; set; }

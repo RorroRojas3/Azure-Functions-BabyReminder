@@ -6,6 +6,8 @@
         public const string EMAILBODY = "EmailBody";
 
         public const string EMAILBODY_BYID = "EmailBody/{id}";
+
+        public const string EMAILBODY_LANGUAGEID = "EmailBody/{languageId}";
         #endregion
 
         #region Email

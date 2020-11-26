@@ -9,6 +9,7 @@ using Rodrigo.Tech.Models.Request;
 using Rodrigo.Tech.Services.Interface;
 using System;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 {
@@ -71,15 +72,15 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
         [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_POST)]
         public async Task<IActionResult> PostEmailBody(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", 
-            Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest request)
+            Route = HttpTriggerFunctionRouteConstants.EMAILBODY_LANGUAGEID)] HttpRequest request, Guid languageId)
         {
             try
             {
                 _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_POST} - Started");
 
-                var input = await request.ReadAsStringAsync();
-                var emailBodyRequest = JsonConvert.DeserializeObject<EmailBodyRequest>(input);
-                var result = await _repositoryService.PostItem(emailBodyRequest);
+                var input = await request.ReadFormAsync();
+                var formFile = input.Files.FirstOrDefault();
+                var result = await _repositoryService.PostItem(languageId, formFile);
 
                 _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_POST} - Finished");
                 return new StatusCodeResult(StatusCodes.Status201Created);
@@ -100,9 +101,9 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             {
                 _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_PUT} - Started");
 
-                var input = await request.ReadAsStringAsync();
-                var emailBodyRequest = JsonConvert.DeserializeObject<EmailBodyRequest>(input);
-                var result = await _repositoryService.PutItem(id, emailBodyRequest);
+                var input = await request.ReadFormAsync();
+                var formFile = input.Files.FirstOrDefault();
+                var result = await _repositoryService.PutItem(id, formFile);
 
                 _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_PUT} - Finished");
                 return new OkObjectResult(result);

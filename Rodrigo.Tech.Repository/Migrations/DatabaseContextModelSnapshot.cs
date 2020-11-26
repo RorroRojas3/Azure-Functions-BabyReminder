@@ -48,9 +48,9 @@ namespace Rodrigo.Tech.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Html")
+                    b.Property<byte[]>("Html")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("uniqueidentifier");

@@ -43,7 +43,7 @@ namespace Rodrigo.Tech.Repository.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Html = table.Column<string>(nullable: false),
+                    Html = table.Column<byte[]>(nullable: false),
                     LanguageId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
