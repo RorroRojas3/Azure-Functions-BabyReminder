@@ -28,12 +28,20 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             Route = HttpTriggerFunctionRouteConstants.LANGUAGE)] HttpRequest req
             )
         {
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GETALL} - Started");
+            try
+            {
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GETALL} - Started");
 
-            var result = await _repositoryService.GetItems();
+                var result = await _repositoryService.GetItems();
 
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GETALL} - Finished");
-            return new OkObjectResult(result);
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GETALL} - Finished");
+                return new OkObjectResult(result);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"{HttpTriggerFunctionNameConstants.LANGUAGE_GETALL} - Failed, Ex: {ex.Message}");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [FunctionName(HttpTriggerFunctionNameConstants.LANGUAGE_GET)]
@@ -41,12 +49,20 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             [HttpTrigger(AuthorizationLevel.Function, "get",
             Route = HttpTriggerFunctionRouteConstants.LANGUAGE_BYID)] HttpRequest request, Guid id)
         {
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GET} - Started");
+            try
+            {
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GET} - Started");
 
-            var result = await _repositoryService.GetItem(id);
+                var result = await _repositoryService.GetItem(id);
 
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GET} - Finished");
-            return new OkObjectResult(result);
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.LANGUAGE_GET} - Finished");
+                return new OkObjectResult(result);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"{HttpTriggerFunctionNameConstants.LANGUAGE_GET} - Failed, Ex: {ex.Message}");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

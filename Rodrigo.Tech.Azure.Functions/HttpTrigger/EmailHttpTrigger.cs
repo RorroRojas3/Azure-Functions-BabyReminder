@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Rodrigo.Tech.Services.Interface;
 using Rodrigo.Tech.Models.Constants;
 using Rodrigo.Tech.Models.Request;
+using System.Net;
 
 namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 {
@@ -30,12 +31,20 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             Route = HttpTriggerFunctionRouteConstants.EMAIL)] HttpRequest req
             )
         {
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_GETALL} - Started");
+            try
+            {
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_GETALL} - Started");
 
-            var result = await _repositoryService.GetItems();
+                var result = await _repositoryService.GetItems();
 
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_GETALL} - Finished");
-            return new OkObjectResult(result);
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_GETALL} - Finished");
+                return new OkObjectResult(result);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"{HttpTriggerFunctionNameConstants.EMAIL_GETALL} - Failed, Ex: {ex.Message}");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [FunctionName(HttpTriggerFunctionNameConstants.EMAIL_GET)]
@@ -43,12 +52,20 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             [HttpTrigger(AuthorizationLevel.Function, "get",
             Route = HttpTriggerFunctionRouteConstants.EMAIL_BYID)] HttpRequest request, Guid id)
         {
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_GET} - Started");
+            try
+            {
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_GET} - Started");
 
-            var result = await _repositoryService.GetItem(id);
+                var result = await _repositoryService.GetItem(id);
 
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_GET} - Finished");
-            return new OkObjectResult(result);
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_GET} - Finished");
+                return new OkObjectResult(result);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"{HttpTriggerFunctionNameConstants.EMAIL_GET} - Failed, Ex: {ex.Message}");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [FunctionName(HttpTriggerFunctionNameConstants.EMAIL_POST)]
@@ -56,14 +73,22 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             [HttpTrigger(AuthorizationLevel.Anonymous, "post",
             Route = HttpTriggerFunctionRouteConstants.EMAIL)] HttpRequest request)
         {
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_POST} - Started");
+            try
+            {
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_POST} - Started");
 
-            var input = await request.ReadAsStringAsync();
-            var emailBodyRequest = JsonConvert.DeserializeObject<EmailRequest>(input);
-            var result = await _repositoryService.PostItem(emailBodyRequest);
+                var input = await request.ReadAsStringAsync();
+                var emailBodyRequest = JsonConvert.DeserializeObject<EmailRequest>(input);
+                var result = await _repositoryService.PostItem(emailBodyRequest);
 
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_POST} - Finished");
-            return new OkObjectResult(result);
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_POST} - Finished");
+                return new StatusCodeResult(StatusCodes.Status201Created);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"{HttpTriggerFunctionNameConstants.EMAIL_POST} - Failed, Ex: {ex.Message}");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [FunctionName(HttpTriggerFunctionNameConstants.EMAIL_PUT)]
@@ -71,14 +96,22 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             [HttpTrigger(AuthorizationLevel.Anonymous, "put",
             Route = HttpTriggerFunctionRouteConstants.EMAIL_BYID)] HttpRequest request, Guid id)
         {
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_PUT} - Started");
+            try
+            {
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_PUT} - Started");
 
-            var input = await request.ReadAsStringAsync();
-            var emailBodyRequest = JsonConvert.DeserializeObject<EmailRequest>(input);
-            var result = await _repositoryService.PutItem(id, emailBodyRequest);
+                var input = await request.ReadAsStringAsync();
+                var emailBodyRequest = JsonConvert.DeserializeObject<EmailRequest>(input);
+                var result = await _repositoryService.PutItem(id, emailBodyRequest);
 
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_PUT} - Finished");
-            return new OkObjectResult(result);
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_PUT} - Finished");
+                return new OkObjectResult(result);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"{HttpTriggerFunctionNameConstants.EMAIL_PUT} - Failed, Ex: {ex.Message}");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [FunctionName(HttpTriggerFunctionNameConstants.EMAIL_DELETE)]
@@ -86,12 +119,20 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete",
             Route = HttpTriggerFunctionRouteConstants.EMAIL_BYID)] HttpRequest request, Guid id)
         {
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_DELETE} - Started");
+            try
+            {
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_DELETE} - Started");
 
-            var result = await _repositoryService.DeleteItem(id);
+                var result = await _repositoryService.DeleteItem(id);
 
-            _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_DELETE} - Finished");
-            return new OkObjectResult(result);
+                _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAIL_DELETE} - Finished");
+                return new OkObjectResult(result);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"{HttpTriggerFunctionNameConstants.EMAIL_DELETE} - Failed, Ex: {ex.Message}");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
