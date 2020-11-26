@@ -11,12 +11,10 @@ namespace Rodrigo.Tech.Services.Implementation
     public class StmpService : IStmpService
     {
         private readonly ILogger _logger;
-        private readonly DatabaseContext _dbContext;
 
-        public StmpService(ILogger<StmpService> logger, DatabaseContext databaseContext)
+        public StmpService(ILogger<StmpService> logger)
         {
             _logger = logger;
-            _dbContext = databaseContext;
         }
 
         public async Task SendEmail()
