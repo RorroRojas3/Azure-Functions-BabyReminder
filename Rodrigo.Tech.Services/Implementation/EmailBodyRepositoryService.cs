@@ -38,7 +38,7 @@ namespace Rodrigo.Tech.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public async Task<Stream> GetItem(Guid id)
+        public async Task<EmailBodyFileResponse> GetItem(Guid id)
         {
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Started, Id: {id}");
@@ -49,12 +49,18 @@ namespace Rodrigo.Tech.Services.Implementation
             {
                 _logger.LogError($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Not found, Id: {id}");
-                return null;
+                throw new KeyNotFoundException();
             }
+
+            var response = new EmailBodyFileResponse
+            {
+                File = new MemoryStream(item.File),
+                FileName = item.Name
+            };
 
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Finished, Id: {id}");
-            return new MemoryStream(item.Html);
+            return response;
         }
 
         /// <inheritdoc/>
@@ -91,7 +97,8 @@ namespace Rodrigo.Tech.Services.Implementation
             var newItem = new EmailBody
             {
                 LanguageId = languageId,
-                Html = await FormFileToByteArray(formFile)
+                Name = formFile.FileName,
+                File = await FormFileToByteArray(formFile)
             };
 
             var addedItem = await _repository.Add(newItem);
@@ -123,7 +130,8 @@ namespace Rodrigo.Tech.Services.Implementation
                 throw new KeyNotFoundException();
             }
 
-            item.Html = await FormFileToByteArray(formFile);
+            item.File = await FormFileToByteArray(formFile);
+            item.Name = formFile.FileName;
             await _repository.Update(item);
 
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +

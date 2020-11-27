@@ -61,7 +61,10 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
                 var result = await _repositoryService.GetItem(id);
 
                 _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_GETALL} - Finished");
-                return new FileStreamResult(result, "application/octet-stream");
+                return new FileStreamResult(result.File, "application/octet-stream")
+                {
+                    FileDownloadName = result.FileName
+                };
             }
             catch(Exception ex)
             {
@@ -73,12 +76,13 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
         [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_POST)]
         public async Task<IActionResult> PostEmailBody(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", 
-            Route = HttpTriggerFunctionRouteConstants.EMAILBODY_LANGUAGEID)] HttpRequest request, Guid languageId)
+            Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest request)
         {
             try
             {
                 _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_POST} - Started");
 
+                var languageId = Guid.Parse(request.Headers.FirstOrDefault(x => x.Key.ToLower() == "languageid").Value);
                 var input = await request.ReadFormAsync();
                 var formFile = input.Files.FirstOrDefault();
                 var result = await _repositoryService.PostItem(languageId, formFile);

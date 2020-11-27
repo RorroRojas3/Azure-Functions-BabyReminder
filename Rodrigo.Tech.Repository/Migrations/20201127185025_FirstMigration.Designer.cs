@@ -10,7 +10,7 @@ using Rodrigo.Tech.Repository.Context;
 namespace Rodrigo.Tech.Repository.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20201126220417_FirstMigration")]
+    [Migration("20201127185025_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,6 +56,10 @@ namespace Rodrigo.Tech.Repository.Migrations
 
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

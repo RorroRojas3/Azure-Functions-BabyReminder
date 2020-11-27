@@ -23,7 +23,7 @@ namespace Rodrigo.Tech.Services.Interface
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Stream> GetItem(Guid id);
+        Task<EmailBodyFileResponse> GetItem(Guid id);
 
         /// <summary>
         ///     Creates item on DB

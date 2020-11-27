@@ -37,7 +37,7 @@ namespace Rodrigo.Tech.Services.Implementation
             {
                 _logger.LogError($"{nameof(LanguageRepositoryService)} " +
                 $"- {nameof(GetItem)} - Not found, Id: {id}");
-                return null;
+                throw new KeyNotFoundException();
             }
 
             _logger.LogInformation($"{nameof(LanguageRepositoryService)} " +
@@ -56,7 +56,7 @@ namespace Rodrigo.Tech.Services.Implementation
             {
                 _logger.LogInformation($"{nameof(LanguageRepositoryService)} " +
                 $"- {nameof(GetItems)} - Not found");
-                return null;
+                throw new KeyNotFoundException();
             }
 
             _logger.LogInformation($"{nameof(LanguageRepositoryService)} " +
