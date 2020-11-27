@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Rodrigo.Tech.Models.Request;
+using Rodrigo.Tech.
+    Models.Request;
 using Rodrigo.Tech.Models.Response;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +23,7 @@ namespace Rodrigo.Tech.Services.Interface
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<byte[]> GetItem(Guid id);
+        Task<Stream> GetItem(Guid id);
 
         /// <summary>
         ///     Creates item on DB

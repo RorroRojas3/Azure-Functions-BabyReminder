@@ -10,6 +10,7 @@ using Rodrigo.Tech.Services.Interface;
 using System;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Net.Http.Headers;
 
 namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 {
@@ -60,7 +61,7 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
                 var result = await _repositoryService.GetItem(id);
 
                 _logger.LogInformation($"{HttpTriggerFunctionNameConstants.EMAILBODY_GETALL} - Finished");
-                return new OkObjectResult(result);
+                return new FileStreamResult(result, "application/octet-stream");
             }
             catch(Exception ex)
             {

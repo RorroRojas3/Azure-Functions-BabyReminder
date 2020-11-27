@@ -38,7 +38,7 @@ namespace Rodrigo.Tech.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public async Task<byte[]> GetItem(Guid id)
+        public async Task<Stream> GetItem(Guid id)
         {
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Started, Id: {id}");
@@ -54,7 +54,7 @@ namespace Rodrigo.Tech.Services.Implementation
 
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Finished, Id: {id}");
-            return item.Html;
+            return new MemoryStream(item.Html);
         }
 
         /// <inheritdoc/>
