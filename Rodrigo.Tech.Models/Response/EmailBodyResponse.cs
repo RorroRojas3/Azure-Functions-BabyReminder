@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Rodrigo.Tech.Models.Response
 {
@@ -8,7 +6,7 @@ namespace Rodrigo.Tech.Models.Response
     {
         public Guid Id { get; set; }
 
-        public string Html { get; set; }
+        public string Name { get; set; }
 
         public Guid LanguageId { get; set; }
     }

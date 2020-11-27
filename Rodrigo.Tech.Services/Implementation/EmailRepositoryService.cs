@@ -47,7 +47,7 @@ namespace Rodrigo.Tech.Services.Implementation
             {
                 _logger.LogError($"{nameof(EmailRepositoryService)} " +
                 $"- {nameof(GetItem)} - Not found, Id: {id}");
-                return null;
+                throw new KeyNotFoundException();
             }
 
             _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
@@ -66,7 +66,7 @@ namespace Rodrigo.Tech.Services.Implementation
             {
                 _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
                 $"- {nameof(GetItems)} - Not found");
-                return null;
+                throw new KeyNotFoundException();
             }
 
             _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
@@ -99,7 +99,7 @@ namespace Rodrigo.Tech.Services.Implementation
             {
                 _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
                 $"- {nameof(PutItem)} - Not found, Request: {JsonConvert.SerializeObject(request)}");
-                return null;
+                throw new KeyNotFoundException();
             }
 
             _mapper.Map(request, item);

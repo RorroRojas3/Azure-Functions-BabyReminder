@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Rodrigo.Tech.Models.Request;
@@ -8,6 +9,7 @@ using Rodrigo.Tech.Repository.Tables;
 using Rodrigo.Tech.Services.Interface;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Rodrigo.Tech.Services.Implementation
@@ -36,7 +38,7 @@ namespace Rodrigo.Tech.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public async Task<EmailBodyResponse> GetItem(Guid id)
+        public async Task<EmailBodyFileResponse> GetItem(Guid id)
         {
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Started, Id: {id}");
@@ -47,12 +49,18 @@ namespace Rodrigo.Tech.Services.Implementation
             {
                 _logger.LogError($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Not found, Id: {id}");
-                return null;
+                throw new KeyNotFoundException();
             }
+
+            var response = new EmailBodyFileResponse
+            {
+                File = new MemoryStream(item.File),
+                FileName = item.Name
+            };
 
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItem)} - Finished, Id: {id}");
-            return _mapper.Map<EmailBodyResponse>(item);
+            return response;
         }
 
         /// <inheritdoc/>
@@ -75,39 +83,67 @@ namespace Rodrigo.Tech.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public async Task<EmailBodyResponse> PostItem(EmailBodyRequest request)
+        public async Task<EmailBodyResponse> PostItem(Guid languageId, IFormFile formFile)
         {
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
-                $"- {nameof(PostItem)} - Started, Request: {JsonConvert.SerializeObject(request)}");
-            var newItem = _mapper.Map<EmailBody>(request);
+                $"- {nameof(PostItem)} - Started, LanguageId: {languageId}");
+
+            if (formFile == null)
+            {
+                _logger.LogError($"{nameof(EmailBodyRepositoryService)} - Formfile is null");
+                throw new ArgumentNullException();
+            }
+
+            var newItem = new EmailBody
+            {
+                LanguageId = languageId,
+                Name = formFile.FileName,
+                File = await FormFileToByteArray(formFile)
+            };
 
             var addedItem = await _repository.Add(newItem);
 
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
-                $"- {nameof(PostItem)} - Finished, Request: {JsonConvert.SerializeObject(request)}");
+                $"- {nameof(PostItem)} - Finished, LanguageId: {languageId}");
             return _mapper.Map<EmailBodyResponse>(addedItem);
         }
 
         /// <inheritdoc/>
-        public async Task<EmailBodyResponse> PutItem(Guid id, EmailBodyRequest request)
+        public async Task<EmailBodyResponse> PutItem(Guid id, IFormFile formFile)
         {
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
-                $"- {nameof(PutItem)} - Started, Request: {JsonConvert.SerializeObject(request)}");
+                $"- {nameof(PutItem)} - Started, Id: {id}");
+
+            if (formFile == null)
+            {
+                _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
+                $"- {nameof(PutItem)} - Formfile is null, Id: {id}");
+                throw new ArgumentException();
+            }
+
             var item = await _repository.Get(id);
 
             if (item == null)
             {
-                _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
-                $"- {nameof(PutItem)} - Not found, Request: {JsonConvert.SerializeObject(request)}");
-                return null;
+                _logger.LogError($"{nameof(EmailBodyRepositoryService)} " +
+                $"- {nameof(PutItem)} - Not found");
+                throw new KeyNotFoundException();
             }
 
-            _mapper.Map(request, item);
+            item.File = await FormFileToByteArray(formFile);
+            item.Name = formFile.FileName;
             await _repository.Update(item);
 
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
-                $"- {nameof(PutItem)} - Finished, Request: {JsonConvert.SerializeObject(request)}");
+                $"- {nameof(PutItem)} - Finished, Id: {id}");
             return _mapper.Map<EmailBodyResponse>(item);
+        }
+
+        private async Task<byte[]> FormFileToByteArray(IFormFile stream)
+        {
+            var memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            return memoryStream.ToArray();
         }
     }
 }
