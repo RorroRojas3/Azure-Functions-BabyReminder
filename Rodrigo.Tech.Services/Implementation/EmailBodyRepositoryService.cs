@@ -38,6 +38,26 @@ namespace Rodrigo.Tech.Services.Implementation
         }
 
         /// <inheritdoc/>
+        public List<EmailBodyResponse> GetAllItemsWithExpression(Func<EmailBody, bool> predicate)
+        {
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
+                $"- {nameof(GetAllItemsWithExpression)} - Started");
+
+            var item = _repository.GetAllWithExpression(predicate);
+
+            if (item == null)
+            {
+                _logger.LogError($"{nameof(EmailBodyRepositoryService)} " +
+                $"- {nameof(GetAllItemsWithExpression)} - Not found");
+                throw new KeyNotFoundException();
+            }
+
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
+                $"- {nameof(GetAllItemsWithExpression)} - Finished");
+            return _mapper.Map<List<EmailBodyResponse>>(item);
+        }
+
+        /// <inheritdoc/>
         public async Task<EmailBodyFileResponse> GetItem(Guid id)
         {
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
@@ -80,6 +100,32 @@ namespace Rodrigo.Tech.Services.Implementation
             _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
                 $"- {nameof(GetItems)} - Finished");
             return _mapper.Map<List<EmailBodyResponse>>(items);
+        }
+
+        /// <inheritdoc/>
+        public EmailBodyFileResponse GetItemWithExpression(Func<EmailBody, bool> predicate)
+        {
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
+                $"- {nameof(GetItemWithExpression)} - Started");
+
+            var item = _repository.GetWithExpression(predicate);
+
+            if (item == null)
+            {
+                _logger.LogError($"{nameof(EmailBodyRepositoryService)} " +
+                $"- {nameof(GetItemWithExpression)} - Not found");
+                throw new KeyNotFoundException();
+            }
+
+            var response = new EmailBodyFileResponse
+            {
+                File = new MemoryStream(item.File),
+                FileName = item.Name
+            };
+
+            _logger.LogInformation($"{nameof(EmailBodyRepositoryService)} " +
+                $"- {nameof(GetItemWithExpression)} - Finished");
+            return response;
         }
 
         /// <inheritdoc/>
