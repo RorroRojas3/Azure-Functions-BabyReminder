@@ -28,6 +28,7 @@ namespace Rodrigo.Tech.Services.Implementation
             _languageRepository = languageRepository;
         }
 
+        /// <inheritdoc/>
         public async Task SendEmail()
         {
             _logger.LogInformation($"StmpService - SendEmail - Started");
