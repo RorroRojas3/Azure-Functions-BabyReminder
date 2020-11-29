@@ -29,7 +29,7 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 
         [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_GETALL)]
         public async Task<IActionResult> GetAllEmailBodies(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", 
+            [HttpTrigger(AuthorizationLevel.Function, "get", 
             Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest req
             )
         {
@@ -75,7 +75,7 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 
         [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_POST)]
         public async Task<IActionResult> PostEmailBody(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", 
+            [HttpTrigger(AuthorizationLevel.Function, "post", 
             Route = HttpTriggerFunctionRouteConstants.EMAILBODY)] HttpRequest request)
         {
             try
@@ -99,7 +99,7 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 
         [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_PUT)]
         public async Task<IActionResult> PutEmailBody(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "put", 
+            [HttpTrigger(AuthorizationLevel.Function, "put", 
             Route = HttpTriggerFunctionRouteConstants.EMAILBODY_BYID)] HttpRequest request, Guid id)
         {
             try
@@ -122,7 +122,7 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 
         [FunctionName(HttpTriggerFunctionNameConstants.EMAILBODY_DELETE)]
         public async Task<IActionResult> DeleteEmailBody(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", 
+            [HttpTrigger(AuthorizationLevel.Function, "delete", 
             Route = HttpTriggerFunctionRouteConstants.EMAILBODY_BYID)] HttpRequest request, Guid id)
         {
             try

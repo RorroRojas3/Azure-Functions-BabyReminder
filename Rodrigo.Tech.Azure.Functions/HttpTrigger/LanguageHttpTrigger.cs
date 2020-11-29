@@ -24,7 +24,7 @@ namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 
         [FunctionName(HttpTriggerFunctionNameConstants.LANGUAGE_GETALL)]
         public async Task<IActionResult> GetAllEmails(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get",
+            [HttpTrigger(AuthorizationLevel.Function, "get",
             Route = HttpTriggerFunctionRouteConstants.LANGUAGE)] HttpRequest req
             )
         {

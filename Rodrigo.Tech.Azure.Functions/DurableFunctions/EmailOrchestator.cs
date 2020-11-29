@@ -22,7 +22,7 @@ namespace Rodrigo.Tech.Azure.Functions.DurableFunctions
           
         [FunctionName(DurableFunctionNameConstants.EMAIL_HTTPSTART)]
         public async Task<HttpResponseMessage> HttpStart(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestMessage req,
             [DurableClient] IDurableOrchestrationClient starter)
         {
             string instanceId = await starter.StartNewAsync(DurableFunctionNameConstants.EMAIL_ORCHESTRATOR, null);
