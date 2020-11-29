@@ -1,9 +1,8 @@
 ﻿using Rodrigo.Tech.Models.Request;
 using Rodrigo.Tech.Models.Response;
-using Rodrigo.Tech.Repository.Pattern.Interface;
+using Rodrigo.Tech.Repository.Tables;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rodrigo.Tech.Services.Interface
@@ -22,6 +21,20 @@ namespace Rodrigo.Tech.Services.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         Task<EmailResponse> GetItem(Guid id);
+
+        /// <summary>
+        ///     Gets T with LINQ expression
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        EmailResponse GetItemWithExpression(Func<Email, bool> predicate);
+
+        /// <summary>
+        ///     Gets list of items with LINQ expression
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        List<EmailResponse> GetAllItemsWithExpression(Func<Email, bool> predicate);
 
         /// <summary>
         ///     Creates item on DB

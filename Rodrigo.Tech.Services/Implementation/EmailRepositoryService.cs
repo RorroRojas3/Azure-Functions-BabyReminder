@@ -36,6 +36,26 @@ namespace Rodrigo.Tech.Services.Implementation
         }
 
         /// <inheritdoc/>
+        public List<EmailResponse> GetAllItemsWithExpression(Func<Email, bool> predicate)
+        {
+            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+                $"- {nameof(GetAllItemsWithExpression)}");
+
+            var item = _repository.GetAllWithExpression(predicate);
+
+            if (item.Count == 0)
+            {
+                _logger.LogError($"{nameof(EmailRepositoryService)} " +
+                $"- {nameof(GetAllItemsWithExpression)} - Not found");
+                throw new KeyNotFoundException();
+            }
+
+            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+                $"- {nameof(GetAllItemsWithExpression)} - Finished");
+            return _mapper.Map<List<EmailResponse>>(item);
+        }
+
+        /// <inheritdoc/>
         public async Task<EmailResponse> GetItem(Guid id)
         {
             _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
@@ -72,6 +92,26 @@ namespace Rodrigo.Tech.Services.Implementation
             _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
                 $"- {nameof(GetItems)} - Finished");
             return _mapper.Map<List<EmailResponse>>(items);
+        }
+
+        /// <inheritdoc/>
+        public EmailResponse GetItemWithExpression(Func<Email, bool> predicate)
+        {
+            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+                $"- {nameof(GetItemWithExpression)}");
+
+            var item = _repository.GetWithExpression(predicate);
+
+            if (item == null)
+            {
+                _logger.LogError($"{nameof(EmailRepositoryService)} " +
+                $"- {nameof(GetItemWithExpression)} - Not found");
+                throw new KeyNotFoundException();
+            }
+
+            _logger.LogInformation($"{nameof(EmailRepositoryService)} " +
+                $"- {nameof(GetItemWithExpression)} - Finished");
+            return _mapper.Map<EmailResponse>(item);
         }
 
         /// <inheritdoc/>
