@@ -5,6 +5,7 @@ using Serilog.Events;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Rodrigo.Tech.Azure.Functions.Extensions.ServiceCollection
@@ -18,7 +19,7 @@ namespace Rodrigo.Tech.Azure.Functions.Extensions.ServiceCollection
         /// <param name="configuration"></param>
         public static void AddLoggingServiceCollection(this IServiceCollection services, IConfiguration configuration)
         {
-            var currentDirectory = Directory.GetCurrentDirectory();
+            var currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var logDirectory = Path.Combine(currentDirectory, "Logs");
             if (!Directory.Exists(logDirectory))
             {
