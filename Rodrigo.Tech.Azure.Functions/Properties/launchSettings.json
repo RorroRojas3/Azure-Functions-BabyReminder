@@ -3,7 +3,8 @@
     "Rodrigo.Tech.Azure.Functions": {
       "commandName": "Project",
       "environmentVariables": {
-        "AZURE_DB": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BabyReminder;Integrated Security=True"
+        "AZURE_DB": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BabyReminder;Integrated Security=True",
+        "ASPNET_ENVIRONMENT": "Local"
       }
     }
   }

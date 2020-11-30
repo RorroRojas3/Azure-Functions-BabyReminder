@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Rodrigo.Tech.Services.Implementation;
 using Rodrigo.Tech.Services.Interface;
+using System;
 using System.Threading.Tasks;
 
 namespace Rodrigo.Tech.ConsoleApp
@@ -21,10 +22,11 @@ namespace Rodrigo.Tech.ConsoleApp
             logger.LogInformation($"ConsoleApp - Baby reminder - Started");
 
             var httpClientService = serviceProvider.GetService<IHttpClientService>();
-            var url = "https://www.google.com";
+            var url = Environment.GetEnvironmentVariable("BABYREMINDER_URL");
+            url = string.Format(url, Environment.GetEnvironmentVariable("BABYREMINDER_KEY"));
 
             logger.LogInformation($"ConsoleApp - Baby reminder - Calling {url}");
-            var response = await httpClientService.Json<object>(url, HttpMethods.Get);
+            var response = await httpClientService.Json<object>(url, HttpMethods.Post);
 
             logger.LogInformation($"ConsoleApp - Baby reminder - Reading response content");
             var responseContent = await response.Content.ReadAsStringAsync();

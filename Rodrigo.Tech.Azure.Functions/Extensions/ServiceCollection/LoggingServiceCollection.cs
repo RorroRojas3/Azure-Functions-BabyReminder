@@ -19,13 +19,6 @@ namespace Rodrigo.Tech.Azure.Functions.Extensions.ServiceCollection
         /// <param name="configuration"></param>
         public static void AddLoggingServiceCollection(this IServiceCollection services, IConfiguration configuration)
         {
-            var currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var logDirectory = Path.Combine(currentDirectory, "Logs");
-            if (!Directory.Exists(logDirectory))
-            {
-                Directory.CreateDirectory(logDirectory);
-            }
-
             var logger = new LoggerConfiguration()
                             .WriteTo.Console(LogEventLevel.Information)
                             .ReadFrom.Configuration(configuration)
