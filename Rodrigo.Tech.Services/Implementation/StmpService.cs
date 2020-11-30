@@ -78,7 +78,8 @@ namespace Rodrigo.Tech.Services.Implementation
                     mail.To.Add(email.EmailAddress);
                 }
 
-                var body = Encoding.UTF8.GetString(htmlFile.File, 0, (int)htmlFile.File.Length);
+                var body = Encoding.UTF8.GetString(htmlFile.File, 0, htmlFile.File.Length);
+                body = string.Format(body, days);
                 AlternateView htmlView = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
                 LinkedResource theEmailImage = new LinkedResource($"{DirectoryHelper.GetCurrentDirectory()}\\Images\\DaniOLeo.jpeg")
                 {
