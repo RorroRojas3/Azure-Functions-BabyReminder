@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Rodrigo.Tech.Repository.Context;
+using Rodrigo.Tech.Repository.Pattern.Interface;
+using Rodrigo.Tech.Repository.Tables;
 using Rodrigo.Tech.Services.Helpers;
 using Rodrigo.Tech.Services.Interface;
 using System;
@@ -14,14 +16,14 @@ namespace Rodrigo.Tech.Services.Implementation
     public class StmpService : IStmpService
     {
         private readonly ILogger _logger;
-        private readonly IEmailRepositoryService _emailRepository;
-        private readonly IEmailBodyRepositoryService _emailBodyRepository;
-        private readonly ILanguageRepositoryService _languageRepository;
+        private readonly IRepositoryPattern<Email> _emailRepository;
+        private readonly IRepositoryPattern<EmailBody> _emailBodyRepository;
+        private readonly IRepositoryPattern<Language> _languageRepository;
 
         public StmpService(ILogger<StmpService> logger,
-                            IEmailRepositoryService emailRepositoryService,
-                            IEmailBodyRepositoryService emailBodyRepository,
-                            ILanguageRepositoryService languageRepository)
+                            IRepositoryPattern<Email> emailRepositoryService,
+                            IRepositoryPattern<EmailBody> emailBodyRepository,
+                            IRepositoryPattern<Language> languageRepository)
         {
             _logger = logger;
             _emailRepository = emailRepositoryService;
@@ -46,11 +48,25 @@ namespace Rodrigo.Tech.Services.Implementation
                 EnableSsl = true
             };
 
-            var languages = await _languageRepository.GetItems();
+            var languages = await _languageRepository.GetAll();
             foreach(var item in languages)
             {
-                var emails = _emailRepository.GetAllItemsWithExpression(x => x.LanguageId == item.Id);
-                var htmlFile = _emailBodyRepository.GetItemWithExpression(x => x.LanguageId == item.Id);
+                var emails = _emailRepository.GetAllWithExpression(x => x.LanguageId == item.Id);
+
+                if (emails.Count == 0)
+                {
+                    _logger.LogInformation($"StmpService - SendEmail - No emails found for {item.Name} language");
+                    continue;
+                }
+
+                var htmlFile = _emailBodyRepository.GetWithExpression(x => x.LanguageId == item.Id);
+
+                if (htmlFile == null)
+                {
+                    _logger.LogInformation($"StmpService - SendEmail - No HTML file found for {item.Name} language");
+                    continue;
+                }
+
                 MailMessage mail = new MailMessage
                 {
                     From = new MailAddress("rodrigo3.tech@gmail.com"),
@@ -62,9 +78,7 @@ namespace Rodrigo.Tech.Services.Implementation
                     mail.To.Add(email.EmailAddress);
                 }
 
-                var memoryStream = new MemoryStream();
-                await htmlFile.File.CopyToAsync(memoryStream);
-                var body = Encoding.UTF8.GetString(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
+                var body = Encoding.UTF8.GetString(htmlFile.File, 0, (int)htmlFile.File.Length);
                 AlternateView htmlView = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
                 LinkedResource theEmailImage = new LinkedResource($"{DirectoryHelper.GetCurrentDirectory()}\\Images\\DaniOLeo.jpeg")
                 {
