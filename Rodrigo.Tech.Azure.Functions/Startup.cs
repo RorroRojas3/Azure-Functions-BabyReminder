@@ -8,6 +8,7 @@ using Rodrigo.Tech.Models.AutoMapper;
 using Rodrigo.Tech.Repository.Context;
 using Rodrigo.Tech.Repository.Pattern.Implementation;
 using Rodrigo.Tech.Repository.Pattern.Interface;
+using Rodrigo.Tech.Services.Helpers;
 using Rodrigo.Tech.Services.Implementation;
 using Rodrigo.Tech.Services.Interface;
 using Serilog;
@@ -22,7 +23,7 @@ namespace Rodrigo.Tech.Azure.Functions
         public override void Configure(IFunctionsHostBuilder builder)
         {
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(DirectoryHelper.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
                 .AddEnvironmentVariables()
                 .Build();

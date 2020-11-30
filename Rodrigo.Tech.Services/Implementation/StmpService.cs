@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Rodrigo.Tech.Repository.Context;
+using Rodrigo.Tech.Services.Helpers;
 using Rodrigo.Tech.Services.Interface;
 using System;
 using System.IO;
@@ -65,7 +66,7 @@ namespace Rodrigo.Tech.Services.Implementation
                 await htmlFile.File.CopyToAsync(memoryStream);
                 var body = Encoding.UTF8.GetString(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
                 AlternateView htmlView = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
-                LinkedResource theEmailImage = new LinkedResource("./Images/DaniOLeo.jpeg")
+                LinkedResource theEmailImage = new LinkedResource($"{DirectoryHelper.GetCurrentDirectory()}\\Images\\DaniOLeo.jpeg")
                 {
                     ContentId = "myImageID"
                 };
