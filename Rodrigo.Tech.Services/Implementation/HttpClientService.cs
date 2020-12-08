@@ -20,8 +20,8 @@ namespace Rodrigo.Tech.Services.Implementation
         public async Task<HttpResponseMessage> Json<T>(string url, string httpMethod, T body = default,
                                                 Dictionary<string, string> headers = null)
         {
-            _logger.LogInformation($"HttpClientService - Json - Started, Url: {url}, " +
-                $"Body: {JsonConvert.SerializeObject(body)}, HttpMethod: {httpMethod}");
+            _logger.LogInformation($"{nameof(HttpClientService)} - {nameof(Json)} - Started, {nameof(url)}: {url}, " +
+                $"{nameof(body)}: {JsonConvert.SerializeObject(body)}, {nameof(httpMethod)}: {httpMethod}");
 
             using var client = CreateClient();
             HttpResponseMessage httpResponseMessage = null;
@@ -48,7 +48,7 @@ namespace Rodrigo.Tech.Services.Implementation
                     httpResponseMessage = await client.DeleteAsync(url);
                     break;
                 default:
-                    _logger.LogError($"HttpClientService - Json - Invalid HttpMethod");
+                    _logger.LogError($"{nameof(HttpClientService)} - {nameof(Json)} - Invalid HttpMethod");
                     break;
             }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Rodrigo.Tech.Models.Constants;
 using Rodrigo.Tech.Repository.Context;
 using Rodrigo.Tech.Repository.Pattern.Implementation;
 using Rodrigo.Tech.Repository.Pattern.Interface;
@@ -13,9 +14,10 @@ namespace Rodrigo.Tech.Azure.Functions.Extensions.ServiceCollection
     {
         public static void AddDatabaseServiceCollection(this IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("AZURE_DB")));
+            var connectionString = Environment.GetEnvironmentVariable(EnvironmentVariableConstants.AZURE_DB);
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
-            optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("AZURE_DB"));
+            optionsBuilder.UseSqlServer(connectionString);
 
             using (var context = new DatabaseContext(optionsBuilder.Options))
                 context.Database.Migrate();
