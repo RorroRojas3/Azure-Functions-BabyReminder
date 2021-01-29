@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
@@ -37,7 +38,7 @@ namespace Rodrigo.Tech.Azure.Functions.DurableFunctions
         public async Task RunOrchestrator(
             [OrchestrationTrigger] IDurableOrchestrationContext context)
         {
-            await context.CallActivityAsync(DurableFunctionNameConstants.EMAIL_SEND, context.InstanceId);
+            await context.CallActivityWithRetryAsync(DurableFunctionNameConstants.EMAIL_SEND, new RetryOptions(TimeSpan.FromMinutes(5), 3), null);
         }
 
         [FunctionName(DurableFunctionNameConstants.EMAIL_SEND)]
