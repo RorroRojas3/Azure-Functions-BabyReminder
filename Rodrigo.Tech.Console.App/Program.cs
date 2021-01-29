@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Rodrigo.Tech.ConsoleApp.Model.Constants;
 using Rodrigo.Tech.Services.Implementation;
 using Rodrigo.Tech.Services.Interface;
 using System;
@@ -19,26 +20,25 @@ namespace Rodrigo.Tech.ConsoleApp
 
             var logger = serviceProvider.GetService<ILoggerFactory>()
             .CreateLogger<Program>();
-            logger.LogInformation($"ConsoleApp - Baby reminder - Started");
+            logger.LogInformation($"{nameof(Program)} - {nameof(Main)} - Started");
 
             var httpClientService = serviceProvider.GetService<IHttpClientService>();
-            var url = Environment.GetEnvironmentVariable("BABYREMINDER_URL");
-            url = string.Format(url, Environment.GetEnvironmentVariable("BABYREMINDER_KEY"));
+            var url = Environment.GetEnvironmentVariable(EnvironmentVariableConstants.BABYREMINDER_URL);
+            url = string.Format(url, Environment.GetEnvironmentVariable(EnvironmentVariableConstants.BABYREMINDER_KEY));
 
-            logger.LogInformation($"ConsoleApp - Baby reminder - Calling {url}");
+            logger.LogInformation($"{nameof(Program)} - {nameof(Main)} - Calling {url}");
             var response = await httpClientService.Json<object>(url, HttpMethods.Post);
 
-            logger.LogInformation($"ConsoleApp - Baby reminder - Reading response content");
             var responseContent = await response.Content.ReadAsStringAsync();
-            logger.LogInformation($"ConsoleApp - Baby reminder - Response: {responseContent}");
+            logger.LogInformation($"{nameof(Program)} - {nameof(Main)} - Response: {responseContent}");
 
             if (!response.IsSuccessStatusCode)
             {
-                logger.LogError($"ConsoleApp - BabyReminder - Unsuccesfull call to {url}, " +
+                logger.LogError($"{nameof(Program)} - {nameof(Main)} - Unsuccesfull call to {url}, " +
                     $"Status: {response.StatusCode}, Response: {responseContent}");
             }
 
-            logger.LogInformation($"ConsoleApp - Baby reminder - Finished");
+            logger.LogInformation($"{nameof(Program)} - {nameof(Main)} - Finished");
         }
     }
 }

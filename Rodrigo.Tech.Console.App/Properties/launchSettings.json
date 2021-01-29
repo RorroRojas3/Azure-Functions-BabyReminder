@@ -4,7 +4,7 @@
       "commandName": "Project",
       "environmentVariables": {
         "BABYREMINDER_URL": "https://rodrigotechbabyreminder.azurewebsites.net/api/EMAIL_HTTPSTART?code={0}",
-        "BABYREMINDER_KEY": "g6iD83n1v8DS1saoDqKgAWCsDACXEjU/tncTZFKFy6rl18fQPLoY/w=="
+        "BABYREMINDER_KEY": ""
       }
     }
   }

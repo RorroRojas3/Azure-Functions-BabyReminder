@@ -7,8 +7,8 @@
         "ASPNETCORE_ENVIRONMENT": "Local",
         "AZURE_PORTAL_DIRECTORY": "D:\\home\\site\\wwwroot",
         "STMP_CLIENT": "smtp.gmail.com",
-        "STMP_EMAIL": "rodrigo3.tech@gmail.com",
-        "STMP_PASSWORD": "OpenSource2019!"
+        "STMP_EMAIL": "",
+        "STMP_PASSWORD": ""
       }
     }
   }
