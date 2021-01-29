@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 using Rodrigo.Tech.Services.Interface;
 using Rodrigo.Tech.Models.Constants;
 using Rodrigo.Tech.Models.Request;
-using System.Net;
 
 namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 {

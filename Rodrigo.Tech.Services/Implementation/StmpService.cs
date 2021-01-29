@@ -72,7 +72,7 @@ namespace Rodrigo.Tech.Services.Implementation
                 MailMessage mail = new MailMessage
                 {
                     From = new MailAddress(stmpEmail),
-                    Subject = "Daniel/Leo/Oliver",
+                    Subject = "Daniel",
                     IsBodyHtml = true
                 };
                 foreach (var email in emails)
@@ -83,7 +83,7 @@ namespace Rodrigo.Tech.Services.Implementation
                 var body = Encoding.UTF8.GetString(htmlFile.File, 0, htmlFile.File.Length);
                 body = string.Format(body, days);
                 AlternateView htmlView = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
-                LinkedResource theEmailImage = new LinkedResource($"{DirectoryHelper.GetCurrentDirectory()}\\Images\\DaniOLeo.jpeg")
+                LinkedResource theEmailImage = new LinkedResource($"{DirectoryHelper.GetCurrentDirectory()}\\Images\\Daniel.jpeg")
                 {
                     ContentId = "myImageID"
                 };

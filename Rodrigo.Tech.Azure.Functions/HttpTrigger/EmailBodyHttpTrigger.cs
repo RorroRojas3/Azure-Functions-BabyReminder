@@ -5,12 +5,9 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Rodrigo.Tech.Models.Constants;
-using Rodrigo.Tech.Models.Request;
 using Rodrigo.Tech.Services.Interface;
 using System;
-using Newtonsoft.Json;
 using System.Linq;
-using System.Net.Http.Headers;
 
 namespace Rodrigo.Tech.Azure.Functions.HttpTrigger
 {
